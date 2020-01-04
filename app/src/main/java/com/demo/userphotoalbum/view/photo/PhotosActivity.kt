@@ -2,6 +2,7 @@ package com.demo.userphotoalbum.view.photo
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,6 +70,11 @@ class PhotosActivity : BaseActivity() {
                         }
                     })
                     adapter?.notifyDataSetChanged()
+                    layoutAnimation = AnimationUtils.loadLayoutAnimation(
+                        this@PhotosActivity,
+                        R.anim.layout_animation_fall_down
+                    )
+                    scheduleLayoutAnimation()
                 }
                 no_data_tv.visibility = View.GONE
             } else {

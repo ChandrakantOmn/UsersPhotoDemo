@@ -3,6 +3,7 @@ package com.demo.userphotoalbum.view.album
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +32,7 @@ class AlbumActivity : BaseActivity() {
         ).get(AlbumViewModel::class.java)
 
         val user: User? = intent.getParcelableExtra(AppConstants.INTENT_DATA)
-        user?.username?.let { setToolbar(it) }
+        user?.username?.let { setToolbar("$it's Albums") }
         user?.let {
             viewModel.getAlbums(user.id)
         }
@@ -74,6 +75,11 @@ class AlbumActivity : BaseActivity() {
                         }
                     })
                     adapter?.notifyDataSetChanged()
+                    layoutAnimation = AnimationUtils.loadLayoutAnimation(
+                        this@AlbumActivity,
+                        R.anim.layout_animation_fall_down
+                    )
+                    scheduleLayoutAnimation()
                 }
                 no_data_tv.visibility = View.GONE
             } else {

@@ -1,13 +1,11 @@
 package com.demo.userphotoalbum.view.photo
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.demo.userphotoalbum.data.DataManager
 import com.demo.userphotoalbum.data.local.entities.Photo
 import com.demo.userphotoalbum.utils.StateLiveData
-import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -21,16 +19,35 @@ import javax.inject.Inject
 class PhotosViewModel @Inject constructor(dataManager: DataManager) : ViewModel() {
     private val repo = PhotosRepo(dataManager)
     var stateLiveData: StateLiveData<List<Photo>>? = StateLiveData()
+    private lateinit var disposableObserver: DisposableObserver<List<Photo>>
 
     fun getPhotos(id: Int?) {
         stateLiveData?.postLoading()
-        val l = repo.getPhotos()
+        disposableObserver = object : DisposableObserver<List<Photo>>() {
+            override fun onComplete() {
+            }
+
+            override fun onNext(response: List<Photo>) {
+                stateLiveData?.postSuccess(response.filter { it.albumId == id })
+            }
+
+            override fun onError(e: Throwable) {
+                stateLiveData?.postError(e)
+            }
+        }
+        repo.getPhotos(id)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .debounce(400, TimeUnit.MILLISECONDS)
+            .subscribe(disposableObserver)
+
+/*
+        repo.getPhotos()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .debounce(400, TimeUnit.MILLISECONDS)
             .flatMapIterable {
                 Log.d("Data", it.size.toString())
-                stateLiveData?.postSuccess(it)
                 return@flatMapIterable it
             }
             .filter {
@@ -54,7 +71,6 @@ class PhotosViewModel @Inject constructor(dataManager: DataManager) : ViewModel(
                     Log.d("Data", e.message)
                 }
             })
-
-
+*/
     }
 }

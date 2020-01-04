@@ -9,19 +9,19 @@ import io.reactivex.Observable
  * Created by Chandra Kant on 4/1/20.
  */
 class AlbumRepo(private val dataManager: DataManager) {
-    fun getAlbums(): Observable<List<Album>> {
+    fun getAlbums(id: Int?): Observable<List<Album>> {
         val hasConnection = dataManager.networkUtils.isConnectedToInternet()
         var observableFromApi: Observable<List<Album>>? = null
         if (hasConnection) {
             observableFromApi = getAlbumFromServer()
         }
-        val observableFromDb = getAlbumsFromDb()
+        val observableFromDb = getAlbumsFromDb(id)
         return if (hasConnection) Observable.concatArrayEager(observableFromApi, observableFromDb)
         else observableFromDb
     }
 
-    private fun getAlbumsFromDb(): Observable<List<Album>> {
-        return dataManager.roomHelper.getDatabase().albumDAO().getAlbums()
+    private fun getAlbumsFromDb(id: Int?): Observable<List<Album>> {
+        return dataManager.roomHelper.getDatabase().albumDAO().getAlbums(id)
             .toObservable()
             .doOnNext {
                 Log.e("REPOSITORY DB *** ", it.size.toString())

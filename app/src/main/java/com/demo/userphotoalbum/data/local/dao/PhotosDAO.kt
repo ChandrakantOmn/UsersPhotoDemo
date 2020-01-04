@@ -14,8 +14,8 @@ import io.reactivex.Flowable
 @Dao
 interface PhotosDAO {
 
-    @Query("SELECT * FROM photo ")
-    fun getPhotos(): Flowable<List<Photo>>
+    @Query("SELECT * FROM photo WHERE albumId=:id ")
+    fun getPhotos(id: Int?): Flowable<List<Photo>>
 
 
     @Query("DELETE FROM photo")

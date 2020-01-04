@@ -13,9 +13,8 @@ import io.reactivex.Flowable
 @Dao
 interface AlbumDAO {
 
-    @Query("SELECT * FROM album ")
-    fun getAlbums(): Flowable<List<Album>>
-
+    @Query("SELECT * FROM album WHERE userId=:id ")
+    fun getAlbums(id: Int?): Flowable<List<Album>>
 
     @Query("DELETE FROM album")
     fun deleteAlbums()
