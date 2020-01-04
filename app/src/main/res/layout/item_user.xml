@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    card_view:cardBackgroundColor="@color/color_white"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="5dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:id="@+id/itemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_border"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4dp">
+
+            <TextView
+                android:id="@+id/iconTv"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/round_bkg_1"
+                android:gravity="center_vertical|center_horizontal"
+                tools:text="14"
+                android:padding="@dimen/_4dp"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/dp1"
+                android:visibility="gone"
+                tools:ignore="ContentDescription,NestedWeights" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_weight=".2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/usernameTv"
+                    style="@style/TitleTextView"
+                    tools:text="Akeira , Chris, me" />
+
+                <TextView
+                    android:id="@+id/nameTv"
+                    style="@style/TitleTextView2"
+                    tools:text="Meeting at university" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/phoneTv"
+            style="@style/DescTextView"
+            android:drawableLeft="@drawable/ic_phone_black_24dp"
+            tools:ignore="RtlHardcoded"
+            tools:text="Meeting at university" />
+
+        <TextView
+            android:id="@+id/emailTv"
+            style="@style/DescTextView"
+            android:drawableLeft="@drawable/ic_email_black_24dp"
+            tools:text="Meeting at university" />
+
+        <TextView
+            android:id="@+id/websiteTv"
+            style="@style/DescTextView"
+            android:drawableLeft="@drawable/ic_language_black_24dp"
+            tools:text="Meeting at university" />
+
+        <TextView
+            android:id="@+id/workTv"
+            style="@style/DescTextView"
+            android:drawableLeft="@drawable/ic_work_black_24dp"
+            tools:ignore="RtlHardcoded"
+            tools:text="Meeting at university" />
+
+        <TextView
+            android:id="@+id/addressTv"
+            style="@style/DescTextView"
+            android:drawableLeft="@drawable/ic_room_black_24dp"
+            tools:ignore="RtlHardcoded"
+            tools:text="Meeting at university" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

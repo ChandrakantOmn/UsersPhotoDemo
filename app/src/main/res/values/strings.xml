@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">UserPhotoAlbum</string>
+    <string name="details_not_added">No records found</string>
+</resources>
