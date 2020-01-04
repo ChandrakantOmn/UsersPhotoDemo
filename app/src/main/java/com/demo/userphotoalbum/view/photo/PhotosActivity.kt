@@ -5,6 +5,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.userphotoalbum.R
 import com.demo.userphotoalbum.data.local.entities.Album
@@ -75,6 +76,13 @@ class PhotosActivity : BaseActivity() {
                         R.anim.layout_animation_fall_down
                     )
                     scheduleLayoutAnimation()
+                    addItemDecoration(
+                        DividerItemDecoration(
+                            this@PhotosActivity,
+                            LinearLayoutManager.HORIZONTAL
+                        )
+                    )
+
                 }
                 no_data_tv.visibility = View.GONE
             } else {

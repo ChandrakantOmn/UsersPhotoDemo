@@ -6,8 +6,6 @@
     android:maxHeight="80dp"
     android:orientation="vertical"
     card_view:cardBackgroundColor="@color/color_white"
-    card_view:cardCornerRadius="10dp"
-    card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true">
 
     <ImageView
@@ -17,9 +15,7 @@
         android:layout_gravity="center"
         android:scaleType="fitXY"
         android:background="@drawable/placeholder"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:orientation="vertical">
 
 
     </ImageView>

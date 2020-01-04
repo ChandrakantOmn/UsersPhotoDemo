@@ -23,13 +23,12 @@ class AlbumViewModel @Inject constructor(dataManager: DataManager) : ViewModel()
 
     fun getAlbums(id: Int?) {
         stateLiveData?.postLoading()
-
         disposableObserver = object : DisposableObserver<List<Album>>() {
             override fun onComplete() {
             }
 
             override fun onNext(response: List<Album>) {
-                stateLiveData?.postSuccess(response.filter { it.userId == id })
+                stateLiveData?.postSuccess(response)
             }
 
             override fun onError(e: Throwable) {
@@ -41,40 +40,5 @@ class AlbumViewModel @Inject constructor(dataManager: DataManager) : ViewModel()
             .observeOn(AndroidSchedulers.mainThread())
             .debounce(400, TimeUnit.MILLISECONDS)
             .subscribe(disposableObserver)
-
-
-/*
-        repo.getAlbums()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .debounce(400, TimeUnit.MILLISECONDS)
-            .flatMapIterable {
-                Log.d("Data", it.size.toString())
-                return@flatMapIterable it
-            }
-            .filter {
-                Log.d("Data filter", it.userId.toString())
-                it.userId!! == id
-            }
-            .toList()
-            .subscribe(object : SingleObserver<List<Album>> {
-            override fun onSuccess(response: List<Album>) {
-                Log.d("Data", response.size.toString())
-                stateLiveData?.postSuccess(response)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-                Log.d("Data", "onSubscribe")
-
-            }
-
-            override fun onError(e: Throwable) {
-                stateLiveData?.postError(e)
-                Log.d("Data", e.message)
-            }
-        })
-*/
-
-
     }
 }

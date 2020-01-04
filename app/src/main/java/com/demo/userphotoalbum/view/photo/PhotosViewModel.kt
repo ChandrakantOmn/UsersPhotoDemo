@@ -26,11 +26,9 @@ class PhotosViewModel @Inject constructor(dataManager: DataManager) : ViewModel(
         disposableObserver = object : DisposableObserver<List<Photo>>() {
             override fun onComplete() {
             }
-
             override fun onNext(response: List<Photo>) {
-                stateLiveData?.postSuccess(response.filter { it.albumId == id })
+                stateLiveData?.postSuccess(response)
             }
-
             override fun onError(e: Throwable) {
                 stateLiveData?.postError(e)
             }
@@ -60,12 +58,10 @@ class PhotosViewModel @Inject constructor(dataManager: DataManager) : ViewModel(
                     Log.d("Data", response.size.toString())
                     stateLiveData?.postSuccess(response)
                 }
-
                 override fun onSubscribe(d: Disposable) {
                     Log.d("Data", "onSubscribe")
 
                 }
-
                 override fun onError(e: Throwable) {
                     stateLiveData?.postError(e)
                     Log.d("Data", e.message)
